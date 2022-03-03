@@ -14,4 +14,10 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\UWPNuGetPackages\microsoft.netcore.universalwindowsplatform\6.2.12\ref\uap10.0.15138\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
