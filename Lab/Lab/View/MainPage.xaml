@@ -48,6 +48,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Площадь:" FontSize="18"/>
+                <Entry FontSize="18" WidthRequest="70" Keyboard="Numeric" Text="{Binding Max}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Квартир с не большей площадью:" FontSize="18"/>
+                <Label FontSize="18" WidthRequest="70" Text="{Binding Count}"/>
+            </StackLayout>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

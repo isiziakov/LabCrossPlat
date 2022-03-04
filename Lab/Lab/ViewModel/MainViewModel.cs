@@ -53,6 +53,34 @@ namespace Lab.ViewModel
                 OnPropertyChanged("CurrentMaterial");
             }
         }
+        private string max;
+        public string Max
+        {
+            get { return max; }
+            set
+            {
+                max = value;
+                if (Double.TryParse(max, out double buf))
+                {
+                    Count = allFlats.Where(i => i.square <= Double.Parse(max)).Count().ToString();
+                }
+                else
+                {
+                    Count = allFlats.Count().ToString();
+                }
+                OnPropertyChanged("Max");
+            }
+        }
+        private string count;
+        public string Count
+        {
+            get { return count; }
+            set
+            {
+                count = value;
+                OnPropertyChanged("Count");
+            }
+        }
         private string currentRoom;
         public string CurrentRoom
         {
@@ -100,6 +128,7 @@ namespace Lab.ViewModel
                 AllFlats = new ObservableCollection<Flat>(db.Flats.Select(i => new Flat(i)));
             }
             setCommands();
+            Max = "";
         }
 
         private bool Check()
