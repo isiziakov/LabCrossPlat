@@ -3,22 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lab.MainPage">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+    <StackLayout Margin="8">
+        <StackLayout Orientation="Vertical">
+            <Label Text="Выбранная квартира" FontSize="28" HorizontalTextAlignment="Center"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Комнат:" FontSize="18"/>
+                <Entry FontSize="18" WidthRequest="75" Keyboard="Numeric" Text="{Binding CurrentRoom}"/>
+                <Label Text="Площадь:" FontSize="18"/>
+                <Entry FontSize="18" WidthRequest="95" Keyboard="Numeric" Text="{Binding CurrentSquare}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Этаж:" FontSize="18"/>
+                <Entry FontSize="18" WidthRequest="70" Keyboard="Numeric" Text="{Binding CurrentFloor}"/>
+                <Label Text="Материал:" FontSize="18"/>
+                <Entry FontSize="18" WidthRequest="120" Text="{Binding CurrentMaterial}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Район:" FontSize="18"/>
+                <Picker WidthRequest="280" SelectedItem="{Binding SelectedDistrict}" ItemsSource="{Binding Districts}" ItemDisplayBinding="{Binding Path=district}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Сохранить" FontSize="18" Command="{Binding Update}"/>
+                <Button Text="Удалить" FontSize="18" Command="{Binding Delete}"/>
+                <Button Text="Создать" FontSize="18" Command="{Binding Create}"/>
+            </StackLayout>
+        </StackLayout>
+        <ListView RowHeight="60" ItemsSource="{Binding AllFlats}" SelectedItem="{Binding SelectedFlat}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Номер: " FontSize="18"/>
+                                <Label Text="{Binding Path=flat_id}" FontSize="18"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Площадь: " FontSize="18"/>
+                                <Label Text="{Binding Path=square}" FontSize="18"/>
+                                <Label Text="Комнат: " FontSize="18" />
+                                <Label Text="{Binding Path=room}" FontSize="18"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 
 </ContentPage>

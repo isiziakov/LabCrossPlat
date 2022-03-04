@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Lab2.Model
+namespace Lab.Model
 {
     public class Flat : INotifyPropertyChanged
     {
@@ -44,13 +44,14 @@ namespace Lab2.Model
         {
 
         }
-        public Flat(int district_id, double square, byte floor, string material, byte room)
+        public Flat(EFlat flat)
         {
-            this.district_id = district_id;
-            this.square = square;
-            this.floor = floor;
-            this.material = material;
-            this.room = room;
+            flat_id = flat.flat_id;
+            district_id = flat.district_id;
+            square = flat.square;
+            floor = flat.floor;
+            material = flat.material;
+            room = flat.room;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

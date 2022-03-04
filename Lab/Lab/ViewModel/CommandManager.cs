@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Lab2.ViewModel
+namespace Lab.ViewModel
 {
     public static class CommandManager
     {

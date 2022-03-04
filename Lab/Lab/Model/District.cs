@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Lab2.Model
+namespace Lab.Model
 {
     public class District
     {

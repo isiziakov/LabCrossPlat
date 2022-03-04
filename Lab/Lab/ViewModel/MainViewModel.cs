@@ -1,15 +1,17 @@
-﻿using Lab2.Model;
+﻿using Lab.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
-namespace Lab2.ViewModel
+namespace Lab.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        string dbPath = DependencyService.Get<IPath>().GetDatabasePath("dbxamarin.db");
         public List<District> Districts { get; set; }
         private District selectedDistrict;
         public District SelectedDistrict
@@ -90,47 +92,13 @@ namespace Lab2.ViewModel
                 OnPropertyChanged("AllFlats");
             }
         }
-        public MainViewModel()
+        public MainViewModel(Context daaaab)
         {
-            // initial data
-            Districts = new List<District>()
+            using (Context db = new Context(dbPath))
             {
-                new District("Район 1")
-                {
-                    district_id = 0
-                },
-                new District("Район 2")
-                {
-                    district_id = 1
-                },
-                new District("Район 3")
-                {
-                    district_id = 2
-                }
-            };
-            AllFlats = new ObservableCollection<Flat>()
-            {
-                new Flat(0, 20, 2, "кирпич", 2)
-                {
-                    flat_id = 0
-                },
-                new Flat(0, 50, 1, "кирпич", 4)
-                {
-                    flat_id = 1
-                },
-                new Flat(1, 18, 3, "кирпич", 1)
-                {
-                    flat_id = 2
-                },
-                new Flat(1, 44, 2, "кирпич", 2)
-                {
-                    flat_id = 3
-                },
-                new Flat(2, 40, 4, "дерево", 3)
-                {
-                    flat_id = 4
-                },
-            };
+                Districts = db.Districts.ToList();
+                AllFlats = new ObservableCollection<Flat>(db.Flats.Select(i => new Flat(i)));
+            }
             setCommands();
         }
 
@@ -145,15 +113,14 @@ namespace Lab2.ViewModel
             {
                 if (Check())
                 {
-                    AllFlats.Add(new Flat(
-                        selectedDistrict.district_id,
-                        Double.Parse(currentSquare),
-                        Byte.Parse(currentFloor),
-                        currentMaterial,
-                        Byte.Parse(currentRoom))
+                    EFlat buf = new EFlat(selectedDistrict.district_id, Double.Parse(currentSquare),
+                        Byte.Parse(currentFloor), currentMaterial, Byte.Parse(currentRoom));
+                    using (Context db = new Context(dbPath))
                     {
-                        flat_id = AllFlats.Count > 0 ? AllFlats.Last().flat_id + 1 : 0
-                    });
+                        db.Flats.Add(buf);
+                        db.SaveChanges();
+                    }
+                    AllFlats.Add(new Flat(buf) { flat_id = buf.flat_id });
                 }
             });
             Update = new RelayCommand(() =>
@@ -165,13 +132,23 @@ namespace Lab2.ViewModel
                     selectedFlat.square = Double.Parse(currentSquare);
                     selectedFlat.room = Byte.Parse(currentRoom);
                     selectedFlat.material = currentMaterial;
+                    using (Context db = new Context(dbPath))
+                    {
+                        db.Flats.Update(new EFlat(selectedFlat));
+                        db.SaveChanges();
+                    }
                 }
             });
             Delete = new RelayCommand(() =>
             {
                 if (selectedFlat != null)
                 {
-                    AllFlats.Remove(selectedFlat);
+                    using (Context db = new Context(dbPath))
+                    {
+                        db.Flats.Remove(new EFlat(selectedFlat));
+                        db.SaveChanges();
+                    }
+                    AllFlats.Remove(SelectedFlat);
                     selectedFlat = null;
                 }
             });

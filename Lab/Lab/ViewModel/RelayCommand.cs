@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Lab2.ViewModel
+namespace Lab.ViewModel
 {
     public class RelayCommand : ICommand
     {
