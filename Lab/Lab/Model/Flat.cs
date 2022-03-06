@@ -53,6 +53,14 @@ namespace Lab.Model
             material = flat.material;
             room = flat.room;
         }
+        public Flat(int district_id, double square, byte floor, string material, byte room)
+        {
+            this.district_id = district_id;
+            this.square = square;
+            this.floor = floor;
+            this.material = material;
+            this.room = room;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string prop = "")

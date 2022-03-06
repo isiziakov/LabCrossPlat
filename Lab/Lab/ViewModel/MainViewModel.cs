@@ -127,6 +127,44 @@ namespace Lab.ViewModel
                 Districts = db.Districts.ToList();
                 AllFlats = new ObservableCollection<Flat>(db.Flats.Select(i => new Flat(i)));
             }
+            //Districts = new List<District>()
+            //{
+            //    new District("Район 1")
+            //    {
+            //        district_id = 0
+            //    },
+            //    new District("Район 2")
+            //    {
+            //        district_id = 1
+            //    },
+            //    new District("Район 3")
+            //    {
+            //        district_id = 2
+            //    }
+            //};
+            //AllFlats = new ObservableCollection<Flat>()
+            //{
+            //    new Flat(0, 20, 2, "кирпич", 2)
+            //    {
+            //        flat_id = 0
+            //    },
+            //    new Flat(0, 50, 1, "кирпич", 4)
+            //    {
+            //        flat_id = 1
+            //    },
+            //    new Flat(1, 18, 3, "кирпич", 1)
+            //    {
+            //        flat_id = 2
+            //    },
+            //    new Flat(1, 44, 2, "кирпич", 2)
+            //    {
+            //        flat_id = 3
+            //    },
+            //    new Flat(2, 40, 4, "дерево", 3)
+            //    {
+            //        flat_id = 4
+            //    },
+            //};
             setCommands();
             Max = "";
         }
@@ -149,7 +187,8 @@ namespace Lab.ViewModel
                         db.Flats.Add(buf);
                         db.SaveChanges();
                     }
-                    AllFlats.Add(new Flat(buf) { flat_id = buf.flat_id });
+                    AllFlats.Add(new Flat(buf) { flat_id = 5 });
+                    Max = max;
                 }
             });
             Update = new RelayCommand(() =>
@@ -166,6 +205,7 @@ namespace Lab.ViewModel
                         db.Flats.Update(new EFlat(selectedFlat));
                         db.SaveChanges();
                     }
+                    Max = max;
                 }
             });
             Delete = new RelayCommand(() =>
@@ -177,8 +217,9 @@ namespace Lab.ViewModel
                         db.Flats.Remove(new EFlat(selectedFlat));
                         db.SaveChanges();
                     }
-                    AllFlats.Remove(SelectedFlat);
+                    AllFlats.Remove(selectedFlat);
                     selectedFlat = null;
+                    Max = max;
                 }
             });
         }

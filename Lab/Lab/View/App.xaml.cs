@@ -15,6 +15,7 @@ namespace Lab
             string dbPath = DependencyService.Get<IPath>().GetDatabasePath("dbxamarin.db");
             var db = new Context(dbPath);
             db.Database.EnsureCreated();
+
             if (db.Districts.Count() == 0)
             {
                 db.Districts.Add(new District { district = "район 1" });
