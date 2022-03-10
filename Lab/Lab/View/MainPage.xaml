@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lab.MainPage">
 
-    <StackLayout Margin="8">
+    <Grid Margin="8">
         <StackLayout Orientation="Vertical">
             <Label Text="Выбранная квартира" FontSize="28" HorizontalTextAlignment="Center"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
@@ -58,6 +58,6 @@
                 <Label FontSize="18" WidthRequest="70" Text="{Binding Count}"/>
             </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </Grid>
 
 </ContentPage>

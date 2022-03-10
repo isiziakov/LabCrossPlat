@@ -13,7 +13,7 @@ namespace Lab
             InitializeComponent();
 
             string dbPath = DependencyService.Get<IPath>().GetDatabasePath("dbxamarin.db");
-            var db = new Context(dbPath);
+            var db = new Context();
             db.Database.EnsureCreated();
 
             if (db.Districts.Count() == 0)

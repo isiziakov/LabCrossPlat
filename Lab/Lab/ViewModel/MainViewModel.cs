@@ -11,7 +11,6 @@ namespace Lab.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        string dbPath = DependencyService.Get<IPath>().GetDatabasePath("dbxamarin.db");
         public List<District> Districts { get; set; }
         private District selectedDistrict;
         public District SelectedDistrict
@@ -122,7 +121,7 @@ namespace Lab.ViewModel
         }
         public MainViewModel(Context daaaab)
         {
-            using (Context db = new Context(dbPath))
+            using (Context db = new Context())
             {
                 Districts = db.Districts.ToList();
                 AllFlats = new ObservableCollection<Flat>(db.Flats.Select(i => new Flat(i)));
@@ -182,7 +181,7 @@ namespace Lab.ViewModel
                 {
                     EFlat buf = new EFlat(selectedDistrict.district_id, Double.Parse(currentSquare),
                         Byte.Parse(currentFloor), currentMaterial, Byte.Parse(currentRoom));
-                    using (Context db = new Context(dbPath))
+                    using (Context db = new Context())
                     {
                         db.Flats.Add(buf);
                         db.SaveChanges();
@@ -200,7 +199,7 @@ namespace Lab.ViewModel
                     selectedFlat.square = Double.Parse(currentSquare);
                     selectedFlat.room = Byte.Parse(currentRoom);
                     selectedFlat.material = currentMaterial;
-                    using (Context db = new Context(dbPath))
+                    using (Context db = new Context())
                     {
                         db.Flats.Update(new EFlat(selectedFlat));
                         db.SaveChanges();
@@ -212,7 +211,7 @@ namespace Lab.ViewModel
             {
                 if (selectedFlat != null)
                 {
-                    using (Context db = new Context(dbPath))
+                    using (Context db = new Context())
                     {
                         db.Flats.Remove(new EFlat(selectedFlat));
                         db.SaveChanges();

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Lab.Model
 {
@@ -12,9 +13,9 @@ namespace Lab.Model
         public DbSet<EFlat> Flats { get; set; }
         public DbSet<District> Districts { get; set; }
 
-        public Context(string databasePath)
+        public Context()
         {
-            _databasePath = databasePath;
+            _databasePath = DependencyService.Get<IPath>().GetDatabasePath("dbxamarin.db"); 
         }
 
 
